@@ -2,7 +2,7 @@
 
 Civox is a community-powered platform that helps neighbors report and resolve local problems — together. Speak up about a pothole, a broken streetlight, or overflowing trash. When enough voices come together, things actually get fixed.
 
-🌐 **Live Demo:** [https://jatinmahire.github.io/civoxnow/](https://jatinmahire.github.io/civoxnow/)  
+🌐 **Live Demo:** [https://jatinmahire.github.io/civox/](https://jatinmahire.github.io/civox/)  
 📍 **Demo Area:** Dehradun, Uttarakhand, India
 
 ---
@@ -53,7 +53,7 @@ To keep things transparent, here's what's fully working in this prototype and wh
 | **Push Notifications** | **Simulated** — Service Worker registered | Web Push + SMS/WhatsApp |
 | **Data Storage** | **Working** — Browser localStorage with reset option | PostgreSQL / PocketBase |
 
-> **Note:** You can optionally enter a Speechmatics API key for live mic streaming, or just use the built-in demo mode — it works great either way.
+> **Note:** Civox comes pre-configured with a built-in Speechmatics API key for live microphone streaming out of the box, with seamless browser fallback.
 
 ---
 
@@ -213,7 +213,7 @@ RESULTS: 269 passed, 0 failed
 ## Project Structure
 
 ```
-civoxnow/
+civox/
 ├── index.html          # Main page — dashboard, map, modals
 ├── styles.css          # Design system — clean, warm, responsive
 ├── app.js              # Core logic — parser, clustering, speech, state
