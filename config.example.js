@@ -1,7 +1,8 @@
 // Example Configuration Template
-// Copy this file to config.js and add your Speechmatics API key:
+// Civox comes with a built-in Speechmatics API key.
+// You can optionally override it here or in the web UI settings.
 window.SPEECHMATICS_CONFIG = {
-  apiKey: '', // Optional: Paste your Speechmatics API key here or use the in-app UI
+  apiKey: 'IDblFjxs3Ac52xfp4QHtWzUsfcp3cc5Q',
   model: 'enhanced',
   language: 'en'
 };

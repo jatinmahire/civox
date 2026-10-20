@@ -27,9 +27,9 @@ function assert(condition, msg) {
   if (!condition) throw new Error(msg || 'Assertion failed');
 }
 
-const html = fs.readFileSync('index.html', 'utf8');
-const js = fs.readFileSync('app.js', 'utf8');
-const css = fs.readFileSync('styles.css', 'utf8');
+const html = fs.readFileSync('index.html', 'utf8').replace(/\r\n/g, '\n');
+const js = fs.readFileSync('app.js', 'utf8').replace(/\r\n/g, '\n');
+const css = fs.readFileSync('styles.css', 'utf8').replace(/\r\n/g, '\n');
 
 // ─────────────────────────────────────────────
 // 1. HTML STRUCTURE

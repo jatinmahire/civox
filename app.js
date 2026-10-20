@@ -926,9 +926,19 @@ function downsampleBuffer(buffer, inputSampleRate, outputSampleRate = 16000) {
   return result.buffer;
 }
 
+const INBUILT_SPEECHMATICS_KEY = 'IDblFjxs3Ac52xfp4QHtWzUsfcp3cc5Q';
+
 function getSpeechmaticsConfig() {
   const fileConfig = (typeof window !== 'undefined' && window.SPEECHMATICS_CONFIG) ? window.SPEECHMATICS_CONFIG : {};
-  const apiKey = (typeof localStorage !== 'undefined' && localStorage.getItem('speechmatics_api_key')) || fileConfig.apiKey || '';
+  const storedKey = typeof localStorage !== 'undefined' ? localStorage.getItem('speechmatics_api_key') : null;
+  let apiKey = INBUILT_SPEECHMATICS_KEY;
+  if (storedKey === 'demo') {
+    apiKey = '';
+  } else if (storedKey && storedKey.trim().length > 0) {
+    apiKey = storedKey.trim();
+  } else if (fileConfig.apiKey) {
+    apiKey = fileConfig.apiKey;
+  }
   const model = (typeof localStorage !== 'undefined' && localStorage.getItem('speechmatics_model')) || fileConfig.model || 'enhanced';
   const language = (typeof localStorage !== 'undefined' && localStorage.getItem('speechmatics_lang')) || fileConfig.language || 'en';
   return { apiKey, model, language };
@@ -2459,7 +2469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const model = modelSelect?.value || 'enhanced';
     const lang = langSelect?.value || 'en';
 
-    if (key) {
+    if (key && key !== INBUILT_SPEECHMATICS_KEY) {
       localStorage.setItem('speechmatics_api_key', key);
     } else {
       localStorage.removeItem('speechmatics_api_key');
@@ -2469,20 +2479,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSpeechmaticsModelUI();
     closeSpeechmaticsModal();
-    if (key) {
-      showToast(`⚡ Speechmatics ${model.toUpperCase()} configured with Realtime WebSocket!`);
-    } else {
-      showToast(`Speechmatics configured in Demo Mode with ${model.toUpperCase()} model.`);
-    }
+    showToast(`⚡ Speechmatics ${model.toUpperCase()} configured with Realtime WebSocket!`);
+  });
+
+  document.querySelector('#btnSpeechmaticsRestoreKey')?.addEventListener('click', () => {
+    localStorage.removeItem('speechmatics_api_key');
+    const keyInput = document.querySelector('#speechmaticsApiKeyInput');
+    if (keyInput) keyInput.value = INBUILT_SPEECHMATICS_KEY;
+    updateSpeechmaticsModelUI();
+    closeSpeechmaticsModal();
+    showToast('Restored built-in Speechmatics API key! Live WebSocket active.');
   });
 
   document.querySelector('#btnSpeechmaticsClearKey')?.addEventListener('click', () => {
-    localStorage.removeItem('speechmatics_api_key');
+    localStorage.setItem('speechmatics_api_key', 'demo');
     const keyInput = document.querySelector('#speechmaticsApiKeyInput');
     if (keyInput) keyInput.value = '';
     updateSpeechmaticsModelUI();
     closeSpeechmaticsModal();
-    showToast('Speechmatics API key cleared. Instant Demo mode active.');
+    showToast('Switched to Demo Mode (simulated speech & browser fallback).');
   });
 
   updateSpeechmaticsModelUI();

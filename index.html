@@ -730,16 +730,17 @@
         <h2>Speechmatics Settings</h2>
         <p class="modal-intro">Configure official Realtime WebSocket API (v2) and active model selection.</p>
 
-        <div style="background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); padding: 14px; border-radius: 12px; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 18px;">
-          <strong style="color: var(--blue); display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-            <span>⚡</span> Realtime WebSocket Engine Active
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); padding: 14px; border-radius: 12px; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 18px;">
+          <strong style="color: #0d9488; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+            <span>⚡</span> Realtime Speechmatics WebSocket Pre-Configured
           </strong>
-          Microphone audio streams directly to <code>wss://eu2.rt.speechmatics.com/v2</code> using 16kHz PCM audio frames. If no key is present, Civox seamlessly uses browser speech recognition with 1-tap demo prompts.
+          Civox includes a built-in Speechmatics API key! Voice input streams directly to <code>wss://eu2.rt.speechmatics.com/v2</code> using 16kHz PCM audio frames with no manual setup needed.
         </div>
 
         <form id="speechmaticsConfigForm" onsubmit="event.preventDefault();">
           <label for="speechmaticsApiKeyInput">Speechmatics API Key
-            <input id="speechmaticsApiKeyInput" type="password" placeholder="s0omciw1B9h0UI4RzDLLnMIxInmPHcuj" autocomplete="off" style="font-family: monospace; font-size: 0.85rem;" />
+            <span style="font-size: 11.5px; font-weight: normal; color: var(--ink-subtle); display: block; margin-top: 2px;">Pre-configured with built-in key. You can also paste your own key below:</span>
+            <input id="speechmaticsApiKeyInput" type="password" placeholder="IDblFjxs3Ac52xfp4QHtWzUsfcp3cc5Q" autocomplete="off" style="font-family: monospace; font-size: 0.85rem;" />
           </label>
 
           <label for="speechmaticsModelSelect" style="margin-top: 14px;">Speech-to-Text Model
@@ -757,11 +758,14 @@
             </select>
           </label>
 
-          <div style="display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line);">
-            <button type="button" class="secondary-button small" id="btnSpeechmaticsClearKey" style="flex: 1;">
+          <div style="display: flex; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); flex-wrap: wrap;">
+            <button type="button" class="secondary-button small" id="btnSpeechmaticsClearKey" style="flex: 1; min-width: 120px;">
               Use Demo Mode
             </button>
-            <button type="button" class="primary-button small" id="btnSaveSpeechmaticsConfig" style="flex: 1;">
+            <button type="button" class="secondary-button small" id="btnSpeechmaticsRestoreKey" style="flex: 1; min-width: 140px;">
+              Reset Built-in Key
+            </button>
+            <button type="button" class="primary-button small" id="btnSaveSpeechmaticsConfig" style="flex: 1; min-width: 130px;">
               Save &amp; Connect <span>→</span>
             </button>
           </div>
