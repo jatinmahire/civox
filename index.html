@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CrowdFix — Turn voices into action</title>
+    <meta name="description" content="Civox helps communities report and resolve local issues together. Speak up, get heard, see change happen." />
+    <title>Civox — Your neighborhood, your voice</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
     <!-- Leaflet Interactive Maps & Heatmap Plugin (FOSS) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -19,21 +20,21 @@
       <aside class="sidebar">
         <div class="brand">
           <span class="brand-mark">✦</span>
-          <span>CrowdFix</span>
+          <span>Civox</span>
         </div>
-        <p class="sidebar-label">CIVIC OPERATIONS</p>
+        <p class="sidebar-label">YOUR DASHBOARD</p>
         <nav id="sidebarNav">
           <button class="nav-item active" data-view="overview">
-            <span>⌂</span> Overview
+            <span>🏠</span> Home
           </button>
           <button class="nav-item" data-view="reports">
-            <span>◉</span> Live reports <b id="sidebarReportCount">3</b>
+            <span>📋</span> Reports <b id="sidebarReportCount">3</b>
           </button>
           <button class="nav-item" data-view="clusters">
-            <span>▦</span> Issue clusters <b id="sidebarClusterCount">3</b>
+            <span>📌</span> Issues <b id="sidebarClusterCount">3</b>
           </button>
           <button class="nav-item" data-view="resolved">
-            <span>✓</span> Resolved <b id="sidebarResolvedCount">1</b>
+            <span>✅</span> Fixed <b id="sidebarResolvedCount">1</b>
           </button>
         </nav>
 
@@ -73,7 +74,7 @@
               <span class="loc-dot">⌖</span> <span id="locationPillText">Locating area…</span>
             </button>
             <span class="live-status"><i></i> Live network</span>
-            <button class="icon-button" id="helpButton" title="About CrowdFix & Architecture">?</button>
+            <button class="icon-button" id="helpButton" title="About Civox & Architecture">?</button>
             <button class="secondary-button small" id="topbarSignInBtn" style="padding:6px 14px;font-size:12px;font-weight:600;display:none;margin-right:4px;">Sign In</button>
             <button class="avatar" id="topbarAvatar" title="Open user profile & role switcher">👤</button>
           </div>
@@ -83,20 +84,20 @@
         <div id="viewOverview" class="view-panel active">
           <section class="hero-grid">
             <div class="hero-copy">
-              <p class="eyebrow accent">COMMUNITY EVIDENCE GRAPH</p>
-              <h2>Small voices.<br /><em>Visible change.</em></h2>
-              <p>Turn everyday voice reports into collective evidence—and collective evidence into action.</p>
+              <p class="eyebrow accent">YOUR NEIGHBORHOOD MATTERS</p>
+              <h2>See a problem?<br /><em>Say something.</em></h2>
+              <p>Report issues in your area with your voice or text. When neighbors speak up together, things actually get fixed.</p>
               <div class="hero-buttons">
                 <button class="primary-button" id="openReport">
-                  <span class="mic-icon">●</span> Report an issue <span>→</span>
+                  <span class="mic-icon">🎙️</span> Report a problem <span>→</span>
                 </button>
                 <button class="secondary-button" id="heroQuickDemo">
-                  <span>⚡</span> Quick Voice Demo
+                  <span>⚡</span> Try a demo
                 </button>
                 <span class="kbd-hint" title="Press R to open report modal">press <kbd>R</kbd></span>
               </div>
               <p class="hero-tech-note">
-                <strong>Engine:</strong> Speechmatics handles speech understanding input (<span id="heroModelLabel">Enhanced Model · Live WS</span>); our civic engine structures and clusters the reports.
+                <strong>How it works:</strong> You speak, we listen. Your report is transcribed (<span id="heroModelLabel">Enhanced Model · Live</span>) and matched with similar reports nearby.
               </p>
 
               <!-- HERO SPEECHMATICS TELEMETRY HUD (LIVE DURING MAIN VOICE INTERACTION) -->
@@ -136,28 +137,28 @@
           <!-- Key Metrics -->
           <section class="stats-row">
             <div class="stat-card reveal stagger-1">
-              <span class="stat-icon orange">◉</span>
+              <span class="stat-icon orange">📣</span>
               <div>
                 <strong id="statTotalReports">24</strong>
-                <small>Total reports filed</small>
+                <small>Reports from neighbors</small>
               </div>
-              <span class="trend">+18% live</span>
+              <span class="trend">+18% today</span>
             </div>
             <div class="stat-card reveal stagger-2">
-              <span class="stat-icon purple">⌁</span>
+              <span class="stat-icon purple">📍</span>
               <div>
                 <strong id="statActiveClusters">3</strong>
-                <small>Active issue clusters</small>
+                <small>Active issues nearby</small>
               </div>
-              <span class="trend neutral">Merged</span>
+              <span class="trend neutral">Grouped</span>
             </div>
             <div class="stat-card reveal stagger-3">
-              <span class="stat-icon green">✓</span>
+              <span class="stat-icon green">🎉</span>
               <div>
                 <strong id="statResolvedRate">88%</strong>
-                <small>Community resolved</small>
+                <small>Problems fixed</small>
               </div>
-              <span class="trend">+6% SLA</span>
+              <span class="trend">+6% faster</span>
             </div>
           </section>
 
@@ -167,8 +168,8 @@
             <div class="section-panel issue-panel">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">PRIORITY QUEUE</p>
-                  <h3>What needs attention</h3>
+                  <p class="eyebrow">TOP PRIORITIES</p>
+                  <h3>What needs fixing</h3>
                 </div>
                 <div class="panel-actions">
                   <select id="categoryFilter" class="small-select" aria-label="Filter priority queue by category">
@@ -191,8 +192,8 @@
             <div class="section-panel map-panel">
               <div class="panel-heading">
                 <div>
-                  <p class="eyebrow">LIVE AREA VIEW</p>
-                  <h3>Reports near you</h3>
+                  <p class="eyebrow">YOUR AREA</p>
+                  <h3>What's happening nearby</h3>
                 </div>
                 <div class="map-controls-row">
                   <span class="privacy-tag" title="Exact user locations are obfuscated for citizen privacy">
@@ -225,10 +226,10 @@
           <section class="recent-section">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">COMMUNITY VOICES</p>
-                <h3>Recent citizen reports</h3>
+                <p class="eyebrow">RECENT ACTIVITY</p>
+                <h3>What neighbors are saying</h3>
               </div>
-              <button class="text-button" id="seeAllReportsBtn">See all reports →</button>
+              <button class="text-button" id="seeAllReportsBtn">See all →</button>
             </div>
             <div class="report-strip" id="reportStrip">
               <!-- Dynamically populated -->
@@ -240,9 +241,9 @@
         <div id="viewReportsFeed" class="view-panel" hidden>
           <div class="feed-header-panel">
             <div>
-              <p class="eyebrow">TRANSCRIBED EVIDENCE FEED</p>
-              <h2>All Community Voice Reports</h2>
-              <p>Chronological feed of citizen voice inputs transcribed via Speechmatics and processed by the Civic Evidence Parser.</p>
+              <p class="eyebrow">ALL REPORTS</p>
+              <h2>What people are reporting</h2>
+              <p>Every report from your community, listed in order. Search, filter, and stay in the loop.</p>
             </div>
             <div class="feed-filters">
               <input type="search" id="feedSearchInput" class="search-input" placeholder="Search reports, landmarks, keywords..." />
@@ -265,9 +266,9 @@
         <div id="viewClustersView" class="view-panel" hidden>
           <div class="feed-header-panel">
             <div>
-              <p class="eyebrow">EXPLAINABLE CIVIC EVIDENCE</p>
-              <h2>Merged Issue Clusters</h2>
-              <p>CrowdFix groups similar nearby citizen reports into cohesive clusters with transparent explainability.</p>
+              <p class="eyebrow">GROUPED ISSUES</p>
+              <h2>Similar reports, one issue</h2>
+              <p>When multiple neighbors report the same problem, we group them together so it's easier to track and fix.</p>
             </div>
           </div>
           <div class="clusters-grid" id="clustersGrid">
@@ -279,9 +280,9 @@
         <div id="viewResolvedView" class="view-panel" hidden>
           <div class="feed-header-panel">
             <div>
-              <p class="eyebrow">CIVIC ACCOUNTABILITY LOG</p>
-              <h2>Resolved Community Issues</h2>
-              <p>Track closed issues, public-service team sign-offs, and community resolution times.</p>
+              <p class="eyebrow">FIXED &amp; DONE</p>
+              <h2>Problems that got solved</h2>
+              <p>See what's been fixed, who handled it, and how long it took. Proof that speaking up works.</p>
             </div>
           </div>
           <div class="resolved-grid" id="resolvedGrid">
@@ -295,10 +296,10 @@
     <div class="modal-backdrop" id="authModal" hidden>
       <div class="auth-modal">
         <button class="close-button" id="closeAuthModal" aria-label="Close modal">×</button>
-        <div class="auth-brand"><span class="brand-mark">✦</span> CrowdFix</div>
-        <p class="eyebrow accent" id="authEyebrow">WELCOME TO YOUR CIVIC NETWORK</p>
-        <h2 id="authTitle">Create your CrowdFix account</h2>
-        <p class="modal-intro" id="authSubtitle">Choose how you use CrowdFix so we can show you the right tools.</p>
+        <div class="auth-brand"><span class="brand-mark">✦</span> Civox</div>
+        <p class="eyebrow accent" id="authEyebrow">JOIN YOUR COMMUNITY</p>
+        <h2 id="authTitle">Create your Civox account</h2>
+        <p class="modal-intro" id="authSubtitle">Tell us a bit about yourself so we can personalize your experience.</p>
         
         <div class="role-switch">
           <button type="button" class="role-button active" data-role="resident">
@@ -359,9 +360,9 @@
     <div class="modal-backdrop" id="reportModal" hidden>
       <div class="report-modal">
         <button class="close-button" id="closeReport" aria-label="Close modal">×</button>
-        <p class="eyebrow accent">NEW COMMUNITY REPORT</p>
-        <h2>What did you notice?</h2>
-        <p class="modal-intro">Speak naturally. CrowdFix will transcribe your speech and extract civic evidence.</p>
+        <p class="eyebrow accent">REPORT A PROBLEM</p>
+        <h2>What's going on?</h2>
+        <p class="modal-intro">Just describe the problem in your own words. We'll take care of the rest.</p>
 
         <!-- SPEECHMATICS REALTIME TELEMETRY INDICATOR (CRITICAL JUDGES FEATURE) -->
         <div class="speechmatics-hud" id="speechmaticsHud">
@@ -679,9 +680,9 @@
     <div class="modal-backdrop" id="helpModal" hidden>
       <div class="help-modal">
         <button class="close-button" id="closeHelpModal" aria-label="Close modal">×</button>
-        <p class="eyebrow accent">HACKATHON ARCHITECTURE</p>
-        <h2>How CrowdFix Works</h2>
-        <p class="modal-intro">A transparent overview of the speech, civic parsing, and clustering pipeline for hackathon judges.</p>
+        <p class="eyebrow accent">BEHIND THE SCENES</p>
+        <h2>How Civox Works</h2>
+        <p class="modal-intro">Here's what happens when you report a problem — step by step, no black boxes.</p>
 
         <div class="arch-card">
           <div class="arch-step">
@@ -733,7 +734,7 @@
           <strong style="color: var(--blue); display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
             <span>⚡</span> Realtime WebSocket Engine Active
           </strong>
-          Microphone audio streams directly to <code>wss://eu2.rt.speechmatics.com/v2</code> using 16kHz PCM audio frames. If no key is present, CrowdFix seamlessly uses browser speech recognition with 1-tap demo prompts.
+          Microphone audio streams directly to <code>wss://eu2.rt.speechmatics.com/v2</code> using 16kHz PCM audio frames. If no key is present, Civox seamlessly uses browser speech recognition with 1-tap demo prompts.
         </div>
 
         <form id="speechmaticsConfigForm" onsubmit="event.preventDefault();">

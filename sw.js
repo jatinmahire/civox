@@ -1,5 +1,5 @@
-// Service Worker for CrowdFix Web Push Notifications
-const CACHE_NAME = 'crowdfix-cache-v1';
+// Service Worker for Civox Web Push Notifications
+const CACHE_NAME = 'Civox-cache-v1';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -11,7 +11,7 @@ self.addEventListener('activate', (event) => {
 
 // Handle push notification events
 self.addEventListener('push', (event) => {
-  let data = { title: 'CrowdFix Civic Alert', body: 'New civic update in your neighborhood.' };
+  let data = { title: 'Civox Civic Alert', body: 'New civic update in your neighborhood.' };
   try {
     if (event.data) {
       data = event.data.json();

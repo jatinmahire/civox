@@ -1,6 +1,6 @@
 /**
- * CrowdFix Automated Test Suite
- * Run with: node test_crowdfix.js
+ * Civox Automated Test Suite
+ * Run with: node test_Civox.js
  */
 
 const fs = require('fs');
@@ -995,7 +995,7 @@ if (failed > 0) {
   console.log('\n❌ Failed tests:');
   errors.forEach(e => console.log(`  • ${e.name}\n    → ${e.error}`));
 } else {
-  console.log('\n🎉 All tests passed! CrowdFix is demo-ready.');
+  console.log('\n🎉 All tests passed! Civox is demo-ready.');
 }
 console.log('─'.repeat(60) + '\n');
 process.exit(failed > 0 ? 1 : 0);

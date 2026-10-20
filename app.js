@@ -1,5 +1,5 @@
 /**
- * CrowdFix — Voice-first Civic Issue Reporting Engine
+ * Civox — Voice-first Civic Issue Reporting Engine
  * 
  * Architecture:
  * 1. Speechmatics Realtime ASR Layer: Captures voice input with streaming latency (~180ms) and language confidence.
@@ -137,20 +137,20 @@ const DEFAULT_RESOLVED = [
 ];
 
 // App State Management
-class CrowdFixState {
+class CivoxState {
   constructor() {
     this.account = this.loadAccount();
     this.issues = this.loadIssues();
     this.resolved = this.loadResolved();
     this.currentView = 'overview';
     this.selectedIssueId = null;
-    this.userLocationConsent = localStorage.getItem('crowdfix_loc_consent') !== 'false';
+    this.userLocationConsent = localStorage.getItem('Civox_loc_consent') !== 'false';
     this.currentCoords = [30.3256, 78.0437]; // Dehradun Ghanta Ghar default
     this.currentPlaceName = 'Rajpur Road, Dehradun';
   }
 
   loadAccount() {
-    const saved = localStorage.getItem('crowdfix_account');
+    const saved = localStorage.getItem('Civox_account');
     if (saved) {
       try { return JSON.parse(saved); } catch (e) {}
     }
@@ -160,14 +160,14 @@ class CrowdFixState {
   saveAccount(acc) {
     this.account = acc;
     if (acc) {
-      localStorage.setItem('crowdfix_account', JSON.stringify(acc));
+      localStorage.setItem('Civox_account', JSON.stringify(acc));
     } else {
-      localStorage.removeItem('crowdfix_account');
+      localStorage.removeItem('Civox_account');
     }
   }
 
   loadIssues() {
-    const saved = localStorage.getItem('crowdfix_issues');
+    const saved = localStorage.getItem('Civox_issues');
     if (saved) {
       try {
         let parsed = JSON.parse(saved);
@@ -191,16 +191,16 @@ class CrowdFixState {
       } catch (e) {}
     }
     const dehradunIssues = JSON.parse(JSON.stringify(DEFAULT_ISSUES));
-    localStorage.setItem('crowdfix_issues', JSON.stringify(dehradunIssues));
+    localStorage.setItem('Civox_issues', JSON.stringify(dehradunIssues));
     return dehradunIssues;
   }
 
   saveIssues() {
-    localStorage.setItem('crowdfix_issues', JSON.stringify(this.issues));
+    localStorage.setItem('Civox_issues', JSON.stringify(this.issues));
   }
 
   loadResolved() {
-    const saved = localStorage.getItem('crowdfix_resolved');
+    const saved = localStorage.getItem('Civox_resolved');
     if (saved) {
       try {
         let parsed = JSON.parse(saved);
@@ -212,17 +212,17 @@ class CrowdFixState {
       } catch (e) {}
     }
     const dehradunResolved = JSON.parse(JSON.stringify(DEFAULT_RESOLVED));
-    localStorage.setItem('crowdfix_resolved', JSON.stringify(dehradunResolved));
+    localStorage.setItem('Civox_resolved', JSON.stringify(dehradunResolved));
     return dehradunResolved;
   }
 
   saveResolved() {
-    localStorage.setItem('crowdfix_resolved', JSON.stringify(this.resolved));
+    localStorage.setItem('Civox_resolved', JSON.stringify(this.resolved));
   }
 
   resetDemoData() {
-    localStorage.removeItem('crowdfix_issues');
-    localStorage.removeItem('crowdfix_resolved');
+    localStorage.removeItem('Civox_issues');
+    localStorage.removeItem('Civox_resolved');
     this.issues = JSON.parse(JSON.stringify(DEFAULT_ISSUES));
     this.resolved = JSON.parse(JSON.stringify(DEFAULT_RESOLVED));
     this.saveIssues();
@@ -248,7 +248,7 @@ class CrowdFixState {
   }
 }
 
-const state = new CrowdFixState();
+const state = new CivoxState();
 
 // -------------------------------------------------------------
 // DYNAMIC DATE & GREETING (User Recommendation #5)
@@ -673,7 +673,7 @@ function renderMapMarkers() {
           <span><b>${issue.count}</b> community voices</span>
           <span style="font-weight:700;color:${issue.cls === 'high' ? '#ff7357' : '#6c4bf4'}">${issue.priority}</span>
         </div>
-        <button onclick="window.crowdfixOpenIssue('${issue.id}')" style="margin-top:8px;width:100%;border:0;background:#ff765c;color:#fff;border-radius:6px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;">
+        <button onclick="window.CivoxOpenIssue('${issue.id}')" style="margin-top:8px;width:100%;border:0;background:#ff765c;color:#fff;border-radius:6px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;">
           View Cluster Details →
         </button>
       </div>
@@ -701,7 +701,7 @@ function renderMapMarkers() {
 }
 
 // Global hook for marker popup click
-window.crowdfixOpenIssue = function(id) {
+window.CivoxOpenIssue = function(id) {
   openIssueDetailModal(id);
 };
 
@@ -1413,11 +1413,11 @@ function startSlaCountdown(issue) {
 // -------------------------------------------------------------
 function whatsappShare(issue) {
   const text = encodeURIComponent(
-    `🚨 CrowdFix Alert: "${issue.title}" at ${issue.place}.\n` +
+    `🚨 Civox Alert: "${issue.title}" at ${issue.place}.\n` +
     `${issue.count} community voices reported this issue.\n` +
     `Status: ${issue.status} | Priority: ${issue.priority}\n\n` +
     `📍 Dehradun, Uttarakhand\n` +
-    `Powered by Speechmatics + CrowdFix Civic Engine.`
+    `Powered by Speechmatics + Civox Civic Engine.`
   );
   window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener');
 }
@@ -1623,7 +1623,7 @@ function renderOverviewPriorityQueue() {
   }
 
   list.innerHTML = activeIssues.map(i => `
-    <div class="issue-row" onclick="window.crowdfixOpenIssue('${i.id}')" title="Click to view explainable cluster">
+    <div class="issue-row" onclick="window.CivoxOpenIssue('${i.id}')" title="Click to view explainable cluster">
       <span class="issue-symbol ${i.color}">${i.icon}</span>
       <div class="issue-main">
         <strong>${i.title}</strong>
@@ -1650,7 +1650,7 @@ function renderOverviewRecentReports() {
   }
 
   strip.innerHTML = allReports.map(r => `
-    <article class="report-card" onclick="window.crowdfixOpenIssue('${r.issueId}')" style="cursor:pointer;" title="Click to view linked issue">
+    <article class="report-card" onclick="window.CivoxOpenIssue('${r.issueId}')" style="cursor:pointer;" title="Click to view linked issue">
       <div class="report-meta">
         <span>${r.user} · ${r.createdAt ? timeAgo(r.createdAt) : r.time}</span>
         <span class="report-tag">${r.category}</span>
@@ -1683,7 +1683,7 @@ function renderLiveReportsFeed() {
   }
 
   container.innerHTML = reports.map(r => `
-    <div class="feed-report-item" onclick="window.crowdfixOpenIssue('${r.issueId}')" style="cursor:pointer;">
+    <div class="feed-report-item" onclick="window.CivoxOpenIssue('${r.issueId}')" style="cursor:pointer;">
       <div class="feed-report-left">
         <div class="feed-report-meta">
           <strong>${r.user}</strong>
@@ -1724,7 +1724,7 @@ function renderClustersGallery() {
   }
 
   container.innerHTML = activeIssues.map(issue => `
-    <div class="cluster-card" onclick="window.crowdfixOpenIssue('${issue.id}')">
+    <div class="cluster-card" onclick="window.CivoxOpenIssue('${issue.id}')">
       <div>
         <div class="cluster-card-header">
           <div>
@@ -2027,7 +2027,7 @@ function setupAuthAndProfile() {
 
   toggleAuth?.addEventListener('click', () => {
     isSignIn = !isSignIn;
-    authTitle.textContent = isSignIn ? 'Welcome back to CrowdFix' : 'Create your CrowdFix account';
+    authTitle.textContent = isSignIn ? 'Welcome back to Civox' : 'Create your Civox account';
     authSubmit.innerHTML = isSignIn ? 'Sign in <span>→</span>' : 'Create account <span>→</span>';
     toggleAuth.textContent = isSignIn ? 'Create an account' : 'Sign in';
     if (nameContainer) nameContainer.style.display = isSignIn ? 'none' : 'block';
@@ -2056,7 +2056,7 @@ function setupAuthAndProfile() {
     });
 
     state.userLocationConsent = document.querySelector('#locationConsent')?.checked !== false;
-    localStorage.setItem('crowdfix_loc_consent', state.userLocationConsent);
+    localStorage.setItem('Civox_loc_consent', state.userLocationConsent);
 
     closeAuthModal();
     showToast(`Welcome, ${nameVal}! Signed in as ${selectedRole === 'officer' ? 'Public-service Team' : 'Resident'}.`);
@@ -2176,7 +2176,7 @@ function openAuthModal(customSubtitle) {
   if (subtitle && customSubtitle) {
     subtitle.textContent = customSubtitle;
   } else if (subtitle) {
-    subtitle.textContent = 'Choose how you use CrowdFix so we can show you the right tools.';
+    subtitle.textContent = 'Choose how you use Civox so we can show you the right tools.';
   }
   modal.hidden = false;
 }
@@ -2565,7 +2565,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.serviceWorker && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({ type: 'DEMO_ALERT' });
       }
-      new Notification('CrowdFix Ward Alert', {
+      new Notification('Civox Ward Alert', {
         body: 'Subscribed to real-time status updates on Rajpur Road & Paltan Bazaar, Dehradun.',
         icon: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'
       });
@@ -2574,7 +2574,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (permission === 'granted') {
         if (btn) btn.classList.add('push-enabled');
         showToast('🔔 Subscribed to neighborhood civic notifications!');
-        new Notification('CrowdFix Notifications Active', {
+        new Notification('Civox Notifications Active', {
           body: 'You will receive updates when reported issues are verified or resolved.',
           icon: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'
         });
@@ -2611,9 +2611,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#shareEvidenceBtn')?.addEventListener('click', () => {
     const issue = [...state.issues, ...state.resolved].find(i => i.id === state.selectedIssueId);
     if (!issue) return;
-    const text = `CrowdFix Civic Alert: "${issue.title}" at ${issue.place}. ${issue.count} community voices. Powered by Speechmatics + CrowdFix.`;
+    const text = `Civox Civic Alert: "${issue.title}" at ${issue.place}. ${issue.count} community voices. Powered by Speechmatics + Civox.`;
     if (navigator.share) {
-      navigator.share({ title: 'CrowdFix Alert', text, url: window.location.href }).catch(() => {});
+      navigator.share({ title: 'Civox Alert', text, url: window.location.href }).catch(() => {});
     } else {
       navigator.clipboard?.writeText(text).then(() => {
         showToast('Evidence link copied to clipboard!');
@@ -2682,7 +2682,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Register Service Worker for Web Push Notifications & Offline Resilience
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').then(() => {
-      console.log('CrowdFix Service Worker registered successfully.');
+      console.log('Civox Service Worker registered successfully.');
     }).catch(err => {
       console.warn('Service Worker registration note:', err);
     });
